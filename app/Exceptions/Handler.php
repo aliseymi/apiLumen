@@ -52,13 +52,24 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
-            return $request->expectsJson()
-                ? new JsonResponse([
-                    'data' => 'not found!',
-                    'status' => 'error'
-                ],404)
-                : parent::render($request,$exception);
+            return $this->notFoundHttpExceptionMessage($request, $exception);
         }
         return parent::render($request, $exception);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param $exception
+     * @return JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
+     */
+    protected function notFoundHttpExceptionMessage(\Illuminate\Http\Request $request, $exception)
+    {
+        return $request->expectsJson()
+            ? new JsonResponse([
+                'data' => 'not found!',
+                'status' => 'error'
+            ], 404)
+            : parent::render($request, $exception);
     }
 }

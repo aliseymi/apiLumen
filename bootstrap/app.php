@@ -27,6 +27,7 @@ $app = new Laravel\Lumen\Application(
 
  $app->withEloquent();
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -107,6 +108,7 @@ $app->register(App\Providers\RouteServiceProvider::class);
 |
 */
 
-
+//$app->setLocale('fa');
+app('translator')->setLocale('fa');
 
 return $app;
