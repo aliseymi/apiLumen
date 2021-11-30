@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'password', 'api_token'
     ];
 
     /**
@@ -28,6 +28,18 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token', 'api_token'
     ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime'
+    ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
