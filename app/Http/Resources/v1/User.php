@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Resources\v1;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class User extends JsonResource
+{
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'api_token' => $this->api_token
+        ];
+    }
+
+    public function with($request)
+    {
+        return [
+            'status' => 'success'
+        ];
+    }
+}
